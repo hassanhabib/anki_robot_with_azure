@@ -9,8 +9,6 @@ Make Vector describe what he sees using Azure Cognitive Services & Vector SDK
 
 import anki_vector
 import requests
-import random
-import string
 import os
 
 def identify_image(image, image_id):
@@ -21,6 +19,8 @@ def identify_image(image, image_id):
         image.save(filename)
         fin = open(filename, 'rb')
         data = fin.read()
+        # Make sure the url we are calling below corresponds to your Azure subscription 
+        # see this issue for more info (https://github.com/hassanhabib/anki_robot_with_azure/issues/1)
         response = requests.post('https://westcentralus.api.cognitive.microsoft.com/vision/v2.0/analyze', headers=headers, params=params, data=data)
         seen = response.json()['description']['captions'][0]['text']
         print(seen)
